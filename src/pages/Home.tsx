@@ -8,10 +8,13 @@ import { useAuth } from '../hooks/useAuth';
 import { FormEvent } from 'react';
 import { useState } from 'react';
 import { database } from '../services/firebase';
+import { useTheme } from '../hooks/useTheme';
+import { ThemeSwitch } from '../components/ThemeSwitch';
 import '../styles/auth.scss';
 
 export function Home() {
   const history = useHistory();
+  const { theme } = useTheme();
   const { user, signInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = useState('');
 
@@ -46,8 +49,8 @@ export function Home() {
   }
 
   return (
-    <div id="page-auth">
-      <aside>
+    <div id="page-auth" className={theme}>
+      <aside className={theme}>
         <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respostas"/>
         <strong>Crie salas de Q&amp;A ao vivo</strong>
         <p>Tire as dúvidas da sua audiência em tempo real</p>
@@ -61,7 +64,8 @@ export function Home() {
           </button>
           <div className="separator">ou entre em uma sala</div>
           <form onSubmit={handleJoinRoom}>
-            <input type="text"
+            <input className={theme}
+                    type="text"
                     placeholder="Digite o código da sala" 
                     onChange={event => setRoomCode(event.target.value)}
                     value={roomCode}
@@ -70,6 +74,7 @@ export function Home() {
           </form>
         </div>
       </main>
+      <ThemeSwitch/>
     </div>
   )
 }

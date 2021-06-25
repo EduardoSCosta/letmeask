@@ -8,10 +8,13 @@ import logoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
 import { database } from '../services/firebase';
 
+import { ThemeSwitch } from '../components/ThemeSwitch';
+import { useTheme } from '../hooks/useTheme';
 import '../styles/auth.scss';
 
 export function NewRoom() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const history = useHistory();
   const [newRoom, setNewRoom] = useState('');
 
@@ -33,8 +36,8 @@ export function NewRoom() {
   }
 
   return (
-    <div id="page-auth">
-      <aside>
+    <div id="page-auth" className={theme}>
+      <aside className={theme}>
         <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respostas"/>
         <strong>Crie salas de Q&amp;A ao vivo</strong>
         <p>Tire as dúvidas da sua audiência em tempo real</p>
@@ -42,9 +45,10 @@ export function NewRoom() {
       <main>
         <div className="main-content">
           <img src={logoImg} alt="letmeask"/>
-          <h2>Criar um nova sala</h2>
+          <h2 className={theme}>Criar um nova sala</h2>
           <form onSubmit={handleCreateRoom}>
-            <input type="text"
+            <input className={theme}
+                    type="text"
                     placeholder="Nome da sala"
                     onChange={event => setNewRoom(event.target.value)}
                     value={newRoom}
@@ -56,6 +60,7 @@ export function NewRoom() {
             </p>
         </div>
       </main>
+      <ThemeSwitch/>
     </div>
   )
 }

@@ -8,6 +8,8 @@ import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
 import { Question } from '../components/Question';
 import { useRoom } from '../hooks/useRoom';
+import { ThemeSwitch } from '../components/ThemeSwitch';
+import { useTheme } from '../hooks/useTheme';
 
 type RoomParams = {
   id: string;
@@ -15,6 +17,7 @@ type RoomParams = {
 
 export function Room() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState('');
   const roomId = params.id;
@@ -60,7 +63,7 @@ export function Room() {
   }
 
   return (
-    <div id="page-room">
+    <div id="page-room" className={theme}>
       <header>
         <div className="content">
           <img src={logoImg} alt="Letmeask" />
@@ -69,11 +72,12 @@ export function Room() {
       </header>
       <main>
         <div className="room-title">
-          <h1>Sala {title}</h1>
-          { questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+          <h1 className={theme}>Sala {title}</h1>
+          { questions.length > 0 && <span className={theme}>{questions.length} pergunta(s)</span>}
         </div>
         <form onSubmit={handleSendQuestion}>
-          <textarea placeholder="O que você quer perguntar?"
+          <textarea className={theme}
+                    placeholder="O que você quer perguntar?"
                     onChange={event => setNewQuestion(event.target.value)}
                     value={newQuestion}
           />
@@ -81,7 +85,7 @@ export function Room() {
             { user ? (
               <div className="user-info">
                 <img src={user.avatar} alt={user.name}/>
-                <span>{user.name}</span>
+                <span className={theme}>{user.name}</span>
               </div>
             ) : (
               <span>Para enviar uma pergunta, <button>faça seu login</button>.</span>
@@ -119,6 +123,7 @@ export function Room() {
           })}
         </div>
       </main>
+      <ThemeSwitch/>
     </div>
   );
 }

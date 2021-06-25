@@ -9,12 +9,21 @@
   display: flex;
   align-items: stretch;
 
+  &.dark {
+    background: #3b3b3b;
+    border: 1px solid #5f45ad;
+  }
+
   div {
     background: #835afd;
     padding: 0 12px;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &.dark {
+      background: #5f45ad;
+    }
   }
 
   span {
@@ -25,5 +34,9 @@
     width: 240px;
     font-size: 14px;
     font-weight: 500;
+
+    &.dark {
+      color: #ffffff;
+    }
   }
 }

@@ -20,6 +20,10 @@
   &.answered {
     background: #dbdcdd;
   }
+
+  &.dark {
+    filter: brightness(0.9);
+  }
   
   p {
     color: #29292e;

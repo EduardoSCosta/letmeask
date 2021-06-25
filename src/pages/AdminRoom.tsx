@@ -3,21 +3,22 @@ import { Button } from '../components/Button';
 import { RoomCode } from '../components/RoomCode';
 import { Question } from '../components/Question';
 import { useRoom } from '../hooks/useRoom';
-//import { useAuth } from '../hooks/useAuth';
 import logoImg from '../assets/images/logo.svg';
 import deleteImg from '../assets/images/delete.svg';
 import checkImg from '../assets/images/check.svg';
 import answerImg from '../assets/images/answer.svg';
 import '../styles/room.scss';
 import { database } from '../services/firebase';
+import { ThemeSwitch } from '../components/ThemeSwitch';
+import { useTheme } from '../hooks/useTheme';
 
 type RoomParams = {
   id: string;
 }
 
 export function AdminRoom() {
-  //const { user } = useAuth();
   const history = useHistory();
+  const { theme } = useTheme();
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
@@ -50,7 +51,7 @@ export function AdminRoom() {
   }
 
   return (
-    <div id="page-room">
+    <div id="page-room" className={theme}>
       <header>
         <div className="content">
           <img src={logoImg} alt="Letmeask" />
@@ -64,8 +65,8 @@ export function AdminRoom() {
       </header>
       <main>
         <div className="room-title">
-          <h1>Sala {title}</h1>
-          { questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+          <h1 className={theme}>Sala {title}</h1>
+          { questions.length > 0 && <span className={theme}>{questions.length} pergunta(s)</span>}
         </div>
         
         <div className="question-list">
@@ -100,6 +101,7 @@ export function AdminRoom() {
           })}
         </div>
       </main>
+      <ThemeSwitch/>
     </div>
   );
 }
